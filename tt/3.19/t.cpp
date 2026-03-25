@@ -1,4 +1,6 @@
+#include <stdint.h>
 #include <iostream>
+#include <queue>
 #include <string>
 #include <vector>
 
@@ -7,9 +9,7 @@ using ll = long long;
 
 const ll N = 1e6 + 10;
 
-void solve() {
-
-}
+void solve() {}
 
 int main() {
     ios::sync_with_stdio(false);
@@ -17,7 +17,7 @@ int main() {
     cout.tie(nullptr);
 
     int t = 1;
-    //cin >> t;
+    // cin >> t;
     while (t--) {
         solve();
     }
