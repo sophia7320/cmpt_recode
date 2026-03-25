@@ -30,27 +30,45 @@ void solve() {
     int p = head;
     unordered_set<int> us;
     vector<node> ru;
+    int pre = -1;
     while (p != -1) {
+
         int a = abs(m[p].v);
         if (us.find(a) == us.end()) {
             us.insert(a);
-            m[p].nxt = m[m[p].nxt].nxt;
+            pre = p;
         }
         else {
             ru.push_back(m[p]);
+            m[pre].nxt = m[p].nxt;
         }
+
         p = m[p].nxt;
     }
 
     p = head;
     while (p != -1) {
-        cout << right << setw(5) << p << " " << m[p].v << " " << right << setw(5) << m[p].nxt << "\n";
+        cout << right << setw(5) << p << " " << m[p].v << " ";
+        if (m[p].nxt != -1)
+            cout << right << setw(5) << m[p].nxt << "\n";
+        else
+            cout << -1 << "\n";
         p = m[p].nxt;
     }
+    for (int i = 0;i < ru.size();i++) {
+        if (i != ru.size() - 1)
+            ru[i].nxt = ru[i + 1].adr;
+        else
+            ru[i].nxt = -1;
+    }
 
-    for (auto& node : ru)
-        cout << right << setw(5) << node.adr << " " << node.v << " " << right << setw(5) << node.nxt << "\n";
-
+    for (auto& node : ru) {
+        cout << right << setw(5) << node.adr << " " << node.v << " ";
+        if (node.nxt != -1)
+            cout << right << setw(5) << node.nxt << "\n";
+        else
+            cout << -1 << "\n";
+    }
 }
 
 int main() {
