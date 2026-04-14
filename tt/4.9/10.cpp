@@ -51,6 +51,7 @@ void out(ll id) {
 void _() {
     cin >> n >> m >> s >> d;
 
+    // for (int i = 0; i < n; i++) f[i] = i;
     for (int i = 0; i < n; i++)
         f[i] = i;
 
@@ -64,6 +65,8 @@ void _() {
 
         link[u].push_back({ v, w });
         link[v].push_back({ u, w });
+        link[u].push_back({ v, w });
+        link[v].push_back({ u, w });
     }
 
     for (int i = 0; i < n; i++) {
@@ -75,7 +78,7 @@ void _() {
     first.id = s;
     ans[s][1] = first.val = v[s];
     ans[s][0] = first.dis = 0;
-    ans[s][2] = first.cnt = 0;
+    ans[s][2] = first.cnt = 1;
 
     q.push(first);
 
@@ -101,7 +104,7 @@ void _() {
                 nn.id = dstid;
                 nn.dis = ans[dstid][0] = cur_dis + elen;
                 nn.val = ans[dstid][1] = cur_val + v[dstid];
-                nn.cnt = ans[dstid][2] = t.cnt + 1;
+                nn.cnt = ans[dstid][2] = t.cnt;
                 f[dstid] = cur_id;
                 q.push(nn);
             }
@@ -111,7 +114,7 @@ void _() {
                 nn.id = dstid;
                 nn.dis = ans[dstid][0] = cur_dis + elen;
                 nn.val = ans[dstid][1] = cur_val + v[dstid];
-                nn.cnt = ans[dstid][2] = t.cnt + 1;
+                nn.cnt = ans[dstid][2] = t.cnt + ans[dstid][2];
                 f[dstid] = cur_id;
                 q.push(nn);
             }
