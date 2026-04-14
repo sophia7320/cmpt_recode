@@ -27,21 +27,13 @@ void _() {
         }
 
         if (t == x) {
-            if (cnt == 1) {
-                cout << "Bingo!" << endl;
-            } else if (cnt < 4) {
-                cout << "Lucky You!" << endl;
-            } else {
-                cout << "Good Guess!" << endl;
-            }
+            if (cnt == 1)cout << "Bingo!" << endl;
+            else if (cnt < 4)cout << "Lucky You!" << endl;
+            else cout << "Good Guess!" << endl;
             return;
         }
-
-        if (t < x) {
-            cout << "Too small" << endl;
-        } else {
-            cout << "Too big" << endl;
-        }
+        if (t < x) cout << "Too small" << endl;
+        else cout << "Too big" << endl;
     }
 }
 

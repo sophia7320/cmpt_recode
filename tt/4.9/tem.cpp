@@ -11,37 +11,8 @@ using vll = vector<ll>;
 
 using pq = priority_queue<int>;
 
-ll n, t;
-
 void _() {
-    int x;
-    cin >> x >> n;
-    int cnt = 0;
-    while (true) {
-        cnt++;
-        cin >> t;
 
-        if (t < 0 || cnt > n) {
-            cout << "Game Over" << endl;
-            return;
-        }
-
-        if (t == x) {
-            if (cnt == 1) {
-                cout << "Bingo!" << endl;
-            } else if (cnt < 4) {
-                cout << "Lucky You!" << endl;
-            } else {
-                cout << "Good Guess!" << endl;
-            }
-        }
-
-        if (t < x) {
-            cout << "Too small" << endl;
-        } else {
-            cout << "Too big" << endl;
-        }
-    }
 }
 
 int main() {

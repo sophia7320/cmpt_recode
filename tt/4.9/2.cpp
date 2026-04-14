@@ -16,21 +16,16 @@ ll n, t;
 vector<string> v;
 
 void _() {
-    string s;
     while (true) {
-        cin >> s;
-        v.push_back(s);
-
-        if (s.back() == '.') {
-            auto& t = v.back();
-            t = t.substr(0, t.length() - 1);
-            break;
-        }
+        char c; string tp;
+        while ((c = cin.get()) != ' ' && c != '.') tp += c;
+        v.push_back(tp);
+        if (c == '.') break;
     }
 
-    for (int i = 0; i < v.size(); i++) {
+    for (int i = 0;i < v.size();i++) {
         cout << v[i].length();
-        if (i != v.size() - 1) cout << " ";
+        if (i != n - 1) cout << " ";
     }
 }
 

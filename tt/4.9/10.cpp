@@ -44,13 +44,15 @@ void out(ll id) {
     }
     out(f[id]);
     cout << id;
-    if (id != d) cout << " ";
+    if (id != d)
+        cout << " ";
 }
 
 void _() {
     cin >> n >> m >> s >> d;
 
-    for (int i = 0; i < n; i++) f[i] = i;
+    for (int i = 0; i < n; i++)
+        f[i] = i;
 
     for (int i = 0; i < n; i++) {
         cin >> v[i];
@@ -60,8 +62,8 @@ void _() {
         int u, v, w;
         cin >> u >> v >> w;
 
-        link[u].push_back({v, w});
-        link[v].push_back({u, w});
+        link[u].push_back({ v, w });
+        link[v].push_back({ u, w });
     }
 
     for (int i = 0; i < n; i++) {
@@ -81,7 +83,8 @@ void _() {
         auto t = q.top();
         q.pop();
 
-        if (t.dis > ans[t.id][0] || t.val < ans[t.id][1]) continue;
+        if (t.dis > ans[t.id][0] || t.val < ans[t.id][1])
+            continue;
 
         vis[t.id] = true;
 
@@ -90,7 +93,8 @@ void _() {
         for (auto& eg : link[cur_id]) {
             ll elen = eg.w, nxval = v[eg.dst], dstid = eg.dst;
 
-            if (vis[dstid]) continue;
+            if (vis[dstid])
+                continue;
 
             if (cur_dis + elen < ans[dstid][0]) {
                 node nn;
@@ -101,9 +105,8 @@ void _() {
                 f[dstid] = cur_id;
                 q.push(nn);
             }
-
-            if (cur_dis + elen == ans[dstid][0] &&
-                cur_val + v[dstid] > ans[dstid][1]) {
+            else if (cur_dis + elen == ans[dstid][0] &&
+                     cur_val + v[dstid] > ans[dstid][1]) {
                 node nn;
                 nn.id = dstid;
                 nn.dis = ans[dstid][0] = cur_dis + elen;
@@ -127,7 +130,8 @@ int main() {
 
     int t = 1;
     // cin>>t;
-    while (t--) _();
+    while (t--)
+        _();
     cout.flush();
 
     system("pause");
