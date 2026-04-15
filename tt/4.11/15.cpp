@@ -42,41 +42,18 @@ void init(int id) {
     ++ns[id];
 }
 
-ll polute(int id, vector<bool>& vis) {
-    ll t = 1;
-    if (vis[id]) return 0;
-    vis[id] = true;
-    for (auto& i : dn[id]) {
-        t += polute(i, vis);
-    }
-    return t;
-}
+vll level[100];
 
-void dfs(vector<bool>& vis, ll cnt) {
-    if (cnt == n) {
-        ll tmp = 1;
-        for (int i = 0;i < ansv.size();i++) {
-            //cout << ansv[i] << " ";
-            tmp = tmp * pow(c[i + 1], ns[ansv[i]]) % M;
-            //cout << "i=" << i << " " << "c[i]= " << c[i] << " " << "ns[i]= " << ns[i] << " ";
-        }
-
-        ans = (ans + tmp) % M;
-        return;
-    }
-
-
-    for (int i = 1;i <= n;i++) if (!vis[i]) {
-        vector<bool> next(vis);
-        ll cnt_t = cnt + polute(i, next);
-        ansv.push_back(i);
-        dfs(next, cnt_t);
-        ansv.pop_back();
+void dfs(int le) {
+    vll tmp(level[le].size());
+    for (ll bits = 0;bits < pow(2, level[le].size()); bits++) {
+        tmp.clear();
     }
 }
 
 void _() {
     cin >> n;
+    vll v(n);
     for (int i = 2;i <= n;i++) {
         ll up;cin >> up;
         dn[up].push_back(i);
@@ -84,14 +61,22 @@ void _() {
 
     for (int i = 1; i <= n;i++) {
         ll t;cin >> t;
-        c[i] = t;
+        c[i] = t;v[i - 1] = i;
     }
 
     init(1);
 
-    dfs(vis, 0);
+    queue<ll> q;
+    q.push(1);int p = 0;
+    while (!q.empty()) {
+        ++p;
+        for (int k = 0;k < q.size();k++) {
+            auto t = q.front();q.pop();
+            for (auto i : dn[t]) level[p].push_back(i), q.push(i);
+        }
+    }
 
-    cout << ans << endl;
+    dfs(2);
 
 }
 
