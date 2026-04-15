@@ -11,11 +11,21 @@ using vll = vector<long long>;
 using pq = priority_queue<ll>;
 
 ll chess[1100][1100];
-ll pre_col[1100][1100];
+ll pre_row[1100][1100];
 ll z[1100][1100];
 ll zs[1100][1100];
 
 ll n;
+
+bool check(ll a[], ll b[]) {
+    const int n = 4;
+    for (int i = 0;i < n - 1;i++)
+        if (a[i] == b[i])
+            if (a[i + 1] != b[i + 1])
+                return a[i + 1] < b[i + 1];
+
+    return false;
+}
 
 void _() {
     cin >> n;
@@ -27,40 +37,39 @@ void _() {
     ll ansv[4];
     ll final_ans = 0;
     while (true) {
-        for (int i = 1;i <= n;i++) for (int j = 1;j <= n;j++) {
-            pre_col[i][j] = chess[i][j] + pre_col[i - 1][j];
-            zs[i][j] = zs[i - 1][j] + z[i][j];
-        }
+
+        for (int i = 1;i <= n;i++)
+            for (int j = 1;j <= n;j++) {
+                pre_row[i][j] = pre_row[i][j - 1] + chess[i][j];
+                zs[i][j] = zs[i][j - 1] + z[i][j];
+            }
 
         ll ans = 0;
 
-        for (int up = 1;up <= n;up++) {
-            for (int dn = up; dn <= n; dn++) {
+        for (int lf = 1;lf <= n;lf++) {
+            for (int rh = lf; rh <= n; rh++) {
                 ll i = 1, j = 0; ll t = 0;
                 ll zr = 0;
 
                 while (++j <= n) {
-                    ll col_sum = pre_col[dn][j] - pre_col[up - 1][j];
-                    zr += zs[dn][j] - zs[up - 1][j];
-                    if (t < 0 || zr) {
-                        t = col_sum, i = j;
-                        zr = zs[dn][j] - zs[up - 1][j];
-                    }
-                    else {
-                        t += col_sum;
-                    }
+                    ll col_sum = pre_row[j][rh] - pre_row[j][lf - 1];
+                    zr += zs[j][rh] - zs[j][lf - 1];
 
-                    if (t > ans && !zr) {
-                        ansv[0] = i, ansv[1] = up, ansv[2] = j, ansv[3] = dn;
-                        ans = t;
-                    }
+                    if (t < 0 || zr)
+                        t = col_sum, i = j, zr = zs[j][rh] - zs[j][lf - 1];
+                    else
+                        t += col_sum;
+
+                    ll u[] = { lf,i,rh,j };
+                    if ((t > ans || (t == ans && check(u, ansv))) && !zr)
+                        memcpy(ansv, u, sizeof(u)), ans = t;
+
                 }
             }
         }
 
         //cout<<ans<<endl;
-
-        if (ans < 0) break;
+        if (ans <= 0) break;
 
         cout << "(" << ansv[0] << ", " << ansv[1] << ")" << " ";
         cout << "(" << ansv[2] << ", " << ansv[3] << ")" << " ";
@@ -68,20 +77,15 @@ void _() {
 
         final_ans += ans;
 
-        // for (int i = ansv[1]; i <= ansv[3]; i++)
-        //     for (int j = ansv[0]; j <= ansv[2]; j++) {
-        //         chess[i][j] = 0, z[i][j] = 1;
-        //     }
-
-        // down
+        // drop
         int py = ansv[3];int high = ansv[3] - ansv[1] + 1;
         while (py > 0) {
-            for (int i = ansv[0];i <= ansv[2];i++) {
+            for (int i = ansv[0];i <= ansv[2];i++)
                 if (py - high > 0)
                     chess[py][i] = chess[py - high][i], z[py][i] = z[py - high][i];
                 else
                     chess[py][i] = 0, z[py][i] = 1;
-            }
+
             py--;
         }
     }
