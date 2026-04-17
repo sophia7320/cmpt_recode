@@ -65,8 +65,6 @@ void _() {
 
         link[u].push_back({ v, w });
         link[v].push_back({ u, w });
-        link[u].push_back({ v, w });
-        link[v].push_back({ u, w });
     }
 
     for (int i = 0; i < n; i++) {
@@ -86,8 +84,9 @@ void _() {
         auto t = q.top();
         q.pop();
 
-        if (t.dis > ans[t.id][0] || t.val < ans[t.id][1])
-            continue;
+        auto opt = node{ t.id,ans[t.id][0],ans[t.id][1],ans[t.id][2] };
+
+        if (t < opt) continue;
 
         vis[t.id] = true;
 
@@ -96,8 +95,7 @@ void _() {
         for (auto& eg : link[cur_id]) {
             ll elen = eg.w, nxval = v[eg.dst], dstid = eg.dst;
 
-            if (vis[dstid])
-                continue;
+            if (vis[dstid]) continue;
 
             if (cur_dis + elen < ans[dstid][0]) {
                 node nn;
@@ -110,6 +108,16 @@ void _() {
             }
             else if (cur_dis + elen == ans[dstid][0] &&
                      cur_val + v[dstid] > ans[dstid][1]) {
+                node nn;
+                nn.id = dstid;
+                nn.dis = ans[dstid][0] = cur_dis + elen;
+                nn.val = ans[dstid][1] = cur_val + v[dstid];
+                nn.cnt = ans[dstid][2] = t.cnt + ans[dstid][2];
+                f[dstid] = cur_id;
+                q.push(nn);
+            }
+            else if (cur_dis + elen == ans[dstid][0] &&
+                    cur_val + v[dstid] == ans[dstid][1]) {
                 node nn;
                 nn.id = dstid;
                 nn.dis = ans[dstid][0] = cur_dis + elen;

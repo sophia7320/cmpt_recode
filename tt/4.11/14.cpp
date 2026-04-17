@@ -52,18 +52,17 @@ void _() {
                 ll zr = 0;
 
                 while (++j <= n) {
-                    ll col_sum = pre_row[j][rh] - pre_row[j][lf - 1];
+                    ll row_sum = pre_row[j][rh] - pre_row[j][lf - 1];
                     zr += zs[j][rh] - zs[j][lf - 1];
 
                     if (t < 0 || zr)
-                        t = col_sum, i = j, zr = zs[j][rh] - zs[j][lf - 1];
+                        t = row_sum, i = j, zr = zs[j][rh] - zs[j][lf - 1];
                     else
-                        t += col_sum;
+                        t += row_sum;
 
                     ll u[] = { lf,i,rh,j };
                     if ((t > ans || (t == ans && check(u, ansv))) && !zr)
                         memcpy(ansv, u, sizeof(u)), ans = t;
-
                 }
             }
         }
