@@ -1,14 +1,11 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <vector>
 #include <queue>
-
-//#define endl "\n"
 
 using namespace std;
 using ll = long long;
-using vll = vector<long long>;
-using pq = priority_queue<ll>;
+using vll = vector<ll>;
 
 void _() {
 
@@ -20,9 +17,10 @@ int main() {
     cout.tie(nullptr);
 
     int t = 1;
-    // cin >> t ;
+    //cin >> t;
     while (t--) _();
 
     cout.flush();
+
     system("pause");
 }
