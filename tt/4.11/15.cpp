@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <set>
 
 //#define endl "\n"
 
@@ -22,6 +23,8 @@ ll vis[45];
 
 ll dp[50][50];
 
+set<ll> dps[50][50];
+
 int n;
 
 ll pow(ll a, ll b) {
@@ -34,12 +37,12 @@ ll pow(ll a, ll b) {
 }
 
 void init_sc(int u) {
+    vis[u] |= (1ll << u);
     for (auto v : dn[u]) {
+        vis[v] |= vis[u];
         init_sc(v);
         sc[u] += sc[v];
-        vis[u] |= vis[v];
     }
-    vis[u] |= (1 << u);
     ++sc[u];
 }
 
@@ -63,7 +66,15 @@ void _() {
     for (int i = 1;i <= n;i++) cin >> c[i];
 
     init_sc(1);
-    dfs(1);
+
+    for (int i = 1;i <= n;i++) dp[i][1] = pow(c[1], sc[i]);
+
+    for (int turn = 2;turn <= n;turn++)
+        for (int dst = 1;dst <= n;dst++)
+            for (int src = 1;src <= n;src++)
+                if (!(vis[dst] & (1ll << src)))
+                    dp[dst][turn] = dp[dst][turn] + dp[src][turn - 1] * pow(c[turn], sc[dst]),
+                    dps[dst][turn].insert(src);
 
     ll ans = 0;
     for (int k = 1;k <= n;k++) {
