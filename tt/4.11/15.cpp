@@ -39,7 +39,7 @@ void init_sc(int u) {
         sc[u] += sc[v];
         vis[u] |= vis[v];
     }
-    vis[u] |= (1 << u);
+    vis[u] |= (1ll << u);
     ++sc[u];
 }
 
@@ -50,6 +50,16 @@ void dfs(int cur) {
     for (auto v : dn[cur]) dfs(v);
 
     dp[cur][1] = pow(c[1], sc[cur]);
+
+    for (int v = 1;v <= n;v++) {
+        if (dp[v][1] == 0) continue;
+
+        for (int i = 2;i <= sc[cur];i++)
+            for (int p = 1;p <= n;p++)
+                if (vis[v] & (1 << p))
+                    dp[v][i] += dp[p][i - 1] * pow(c[v], sc[v]);
+
+    }
 
 }
 
@@ -63,7 +73,15 @@ void _() {
     for (int i = 1;i <= n;i++) cin >> c[i];
 
     init_sc(1);
-    dfs(1);
+
+    for (int cur = 1;cur <= n;cur++)dp[cur][1] = pow(c[1], sc[cur]);
+
+    for (int turn = 2;turn <= n;turn++)
+        for (int dst = 1;dst <= n;dst++)
+            for (int src = 1; src <= n;src++)
+                if (vis[dst] & (1ll << src))
+                    if (src != dst)
+                        dp[dst][turn] = (dp[dst][turn] + dp[src][turn - 1] * pow(c[dst], sc[dst]) % M) % M;
 
     ll ans = 0;
     for (int k = 1;k <= n;k++) {
