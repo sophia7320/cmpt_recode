@@ -26,8 +26,6 @@ unordered_map<ll, ll> dp[50];
 
 int n;
 
-int fr[45];
-
 ll pow(ll a, ll b) {
     ll res = 1;
     while (b) {
@@ -62,7 +60,6 @@ void _() {
     cin >> n;
     for (int i = 2;i <= n;i++) {
         ll t;cin >> t;
-        fr[i] = t;
         dn[t].push_back(i);
     }
 
@@ -70,23 +67,23 @@ void _() {
 
     init_sc(1);
 
-    for (int turn = 1;turn <= n;turn++) dp[turn][vis[1]] = pow(c[turn], sc[1]), dp[turn][vis[1]] = vis[1];
+    for (int i = 1;i <= n;i++)
+        for (int j = 1;j <= n;j++)
+            qpow[i][j] = pow(c[i], sc[j]);
 
-    //vis[0] = vis[1];
+    for (int t = 1;t <= n;t++) dp[t][vis[1]] = pow(c[t], sc[1]);
 
-    for (int t = n - 1;t >= 2;t--)
-        for (auto& [mask, val] : dp[t]) {
-            for (int dst = 1;dst <= n;dst++)
+    for (int t = n;t >= 2;t--)
+        for (auto& [mask, val] : dp[t])
+            for (int dst = 1;dst <= n;dst++) {
+                //if (cnt1(mask) < t - 1) break;
+
                 if (!(mask & (1ll << dst)))
-                    dp[t - 1][mask & vis[dst]] = dp[t - 1][mask & vis[dst]] + dp[t][mask] * pow(c[t - 1], sc[dst]);
-        }
-
-
-
-
+                    dp[t - 1][mask | vis[dst]] = (dp[t - 1][mask | vis[dst]] + val * qpow[t - 1][dst] % M) % M;
+            }
 
     ll ans = 0;
-    for (auto& [mask, v] : dp[1]) ans += v;
+    for (auto& [m, v] : dp[1]) ans = (ans + v) % M;
     cout << ans << endl;
 }
 
