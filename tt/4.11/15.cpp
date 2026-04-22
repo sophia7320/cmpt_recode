@@ -32,10 +32,12 @@ ll pow(ll a, ll b) {
     ll res = 1;
     while (b) {
         if (b & 1) res = res * a % M;
-        a *= a, b >>= 1;
+        a = (a * a) % M, b >>= 1;
     }
     return res;
 }
+
+ll qpow[45][45];
 
 void init_sc(int u) {
     vis[u] |= (1ll << u);
@@ -47,6 +49,14 @@ void init_sc(int u) {
     ++sc[u];
 }
 
+int cnt1(ll v) {
+    int cnt = 0;
+    while (v) {
+        v &= v - 1;
+        cnt++;
+    }
+    return n - cnt;
+}
 
 void _() {
     cin >> n;
@@ -64,12 +74,12 @@ void _() {
 
     //vis[0] = vis[1];
 
-    for (int t = n-1;t >= 2;t--)
-            for (auto& [mask, val] : dp[t]) {
-                for (int dst = 1;dst <= n;dst++)
-                    if (!(mask & (1ll << dst)))
-                        dp[t - 1][mask & vis[dst]] = dp[t - 1][mask & vis[dst]] + dp[t][mask] * pow(c[t - 1], sc[dst]);
-            }
+    for (int t = n - 1;t >= 2;t--)
+        for (auto& [mask, val] : dp[t]) {
+            for (int dst = 1;dst <= n;dst++)
+                if (!(mask & (1ll << dst)))
+                    dp[t - 1][mask & vis[dst]] = dp[t - 1][mask & vis[dst]] + dp[t][mask] * pow(c[t - 1], sc[dst]);
+        }
 
 
 

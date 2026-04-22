@@ -25,13 +25,14 @@ void solve() {
     for (int i = 0; i < n; i++) {
         int t = v[i];
         ll pos = lower_bound(f, f + top, t) - f;
-        while (pos < top - 1 && t == f[pos + 1])
-            pos++;
-        if (pos == top || f[pos] != t) {
+
+        while (pos < top - 1 && t == f[pos + 1]) pos++;
+
+        if (pos == top || f[pos] != t)
             f[++top - 1] = t + 1, s[top - 1]++;
-        } else {
+        else
             f[pos]++, s[pos]++;
-        }
+
     }
 
     ll ans = INT32_MAX;
