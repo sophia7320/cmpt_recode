@@ -14,7 +14,12 @@ ll dp[25][25];
 ll fr[25][25];
 
 void out(int i, int j) {
-
+    if (i == 1) {
+        cout << j << " ";
+        return;
+    }
+    out(i - 1, fr[i][j]);
+    cout << j << " ";
 }
 
 void solve() {
@@ -27,22 +32,23 @@ void solve() {
         }
 
     for (int i = 1;i <= n;i++) dp[1][i] = v[i];
+
     for (int i = 1;i <= n - 1;i++)
         for (int src = 1;src <= n;src++)
             for (auto nxt : nx[src])
                 if (dp[i][src] + v[nxt] > dp[i + 1][nxt])
-                    dp[i + 1][nxt] = dp[i][src],
+                    dp[i + 1][nxt] = dp[i][src] + v[nxt],
                     fr[i + 1][nxt] = src;
 
     ll ans[3]{};
     for (int i = 1;i <= n;i++)
         for (int j = 1;j <= n;j++)
             if (dp[i][j] > ans[2])
-                ans[0] = i, ans[1] = j, ans[3] = dp[i][j];
+                ans[0] = i, ans[1] = j, ans[2] = dp[i][j];
 
-    out(int i, int j);
+    out(ans[0], ans[1]);cout << endl;
 
-    cout << ans << endl;
+    cout << ans[2] << endl;
 }
 
 int main() {
