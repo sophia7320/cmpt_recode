@@ -9,7 +9,7 @@ using ll = long long;
 class SegTree {
     using map = vector<char>;
 
-   private:
+private:
     struct Node {
         map m;
         bool lazy;
@@ -98,7 +98,7 @@ class SegTree {
         __output(s, node * 2 + 1, mid + 1, r);
     }
 
-   public:
+public:
     SegTree() = default;
 
     SegTree(size_t size) : tree(4 * size), n(size) {};
@@ -125,7 +125,7 @@ void init() {
     segTree = SegTree(s.length());
 }
 
-void solve() {
+void _() {
     ll l, r;
     char x, y;
     cin >> l >> r >> x >> y;
@@ -149,7 +149,7 @@ int main() {
     int t;
     cin >> t;
     while (t--)
-        solve();
+        _();
 
     output();
 }

@@ -1,18 +1,16 @@
 #include <algorithm>
 #include <iostream>
-#include <set>
 #include <vector>
+#include <queue>
+#include <stdint.h>
 
 using namespace std;
 using ll = long long;
 using vll = vector<ll>;
+using vint = vector<int>;
 
-string s;
+void _() {
 
-void init() {
-}
-
-void solve() {
 }
 
 int main() {
@@ -20,12 +18,10 @@ int main() {
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    init();
-
     int t = 1;
     // cin >> t;
-    while (t--)
-        solve();
+    while (t--) _();
+
     cout.flush();
 
     system("pause");

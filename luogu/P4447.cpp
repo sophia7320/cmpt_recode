@@ -21,7 +21,7 @@ void init() {
 
 ll s[M], f[M];
 
-void solve() {
+void _() {
     for (int i = 0; i < n; i++) {
         int t = v[i];
         ll pos = lower_bound(f, f + top, t) - f;
@@ -53,7 +53,7 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
     cout.flush();
 
     system("pause");

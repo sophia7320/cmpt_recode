@@ -76,7 +76,7 @@ void _() {
     for (int t = n;t >= 2;t--)
         for (auto& [mask, val] : dp[t])
             for (int dst = 1;dst <= n;dst++) {
-                //if (cnt1(mask) < t - 1) break;
+                if (cnt1(mask) < t - 1) break;
 
                 if (!(mask & (1ll << dst)))
                     dp[t - 1][mask | vis[dst]] = (dp[t - 1][mask | vis[dst]] + val * qpow[t - 1][dst] % M) % M;
@@ -97,5 +97,6 @@ int main() {
     while (t--) _();
 
     cout.flush();
+
     system("pause");
 }

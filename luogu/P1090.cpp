@@ -20,7 +20,7 @@ void init() {
     }
 }
 
-void solve() {
+void _() {
     ll ans = 0;
     while (pq.size() != 1) {
         ll t = pq.top();
@@ -45,5 +45,5 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 }

@@ -11,7 +11,7 @@ struct cow {
 
 using cowLis = vector<cow>;
 
-void solve() {
+void _() {
     int n;
     cin >> n;
 
@@ -76,5 +76,5 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 }

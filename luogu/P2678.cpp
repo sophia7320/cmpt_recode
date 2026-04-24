@@ -26,7 +26,8 @@ inline bool j(int t) {
     while (++p < v.size()) {
         if (v[p] - cur < t) {
             cnt++;
-        } else {
+        }
+        else {
             cur = v[p];
         }
     }
@@ -34,13 +35,14 @@ inline bool j(int t) {
     return cnt <= m;
 }
 
-void solve() {
+void _() {
     int l = 0, r = h;
     while (l < r) {
         int mid = (l + r + 1) / 2;
         if (j(mid)) {
             l = mid;
-        } else {
+        }
+        else {
             r = mid - 1;
         }
     }
@@ -61,7 +63,7 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 
     output();
 }

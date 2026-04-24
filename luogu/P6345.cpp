@@ -42,7 +42,8 @@ struct qwq {
             if (qma.size() > now) {
                 qmi.push(qma.top());
                 qma.pop();
-            } else {
+            }
+            else {
                 qma.push(qmi.top());
                 qmi.pop();
             }
@@ -50,7 +51,7 @@ struct qwq {
     }
 };
 
-void solve() {
+void _() {
     qwq q;
 
     int n;
@@ -72,7 +73,7 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--) {
-        solve();
+        _();
     }
     cout.flush();
 

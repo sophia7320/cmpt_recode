@@ -24,7 +24,7 @@ void init() {
 }
 
 int h[1111][1111];
-void solve() {
+void _() {
     int ans = 0;
     for (int i = 1;i <= n;i++) {
         for (int j = 1;j <= m;j++) {
@@ -91,7 +91,7 @@ int main() {
     int t = 1;
     //cin >> t;
     while (t--)
-        solve();
+        _();
 
     output();
 

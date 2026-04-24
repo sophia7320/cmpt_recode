@@ -9,7 +9,7 @@ using Bit = bitset<1000>;
 
 vector<Bit> v(1000);
 
-void solve() {
+void _() {
     int ans = 0;
     int n, m;
     cin >> n >> m;
@@ -49,5 +49,5 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 }

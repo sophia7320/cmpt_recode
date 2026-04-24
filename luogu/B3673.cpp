@@ -7,7 +7,7 @@ using ll = long long;
 
 string s;
 
-void solve() {
+void _() {
     cin >> s;
     ll n = s.length();
 
@@ -31,7 +31,7 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 
     system("pause");
 }

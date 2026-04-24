@@ -9,7 +9,7 @@ using mset = multiset<ll>;
 mset s;
 vector<ll> v;
 
-void solve() {
+void _() {
     int n, k;
     cin >> n >> k;
     v.reserve(n);
@@ -39,5 +39,5 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 }

@@ -48,7 +48,7 @@ void init() {
 }
 
 vll v;
-void solve() {
+void _() {
     ll s = 0, i = 2;
     while (s < n) {
         s += i;
@@ -83,7 +83,7 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--)
-        solve();
+        _();
 
     output();
     system("pause");

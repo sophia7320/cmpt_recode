@@ -7,7 +7,7 @@ using namespace std;
 using vstr = vector<string>;
 using vint = vector<int>;
 
-void solve() {
+void _() {
     int n;
     cin >> n;
     vstr datas(n);
@@ -33,6 +33,6 @@ int main() {
     int t = 1;
     // cin >> t;
     while (t--) {
-        solve();
+        _();
     }
 }
