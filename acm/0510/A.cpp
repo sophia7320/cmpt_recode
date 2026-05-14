@@ -2,12 +2,15 @@
 #include <vector>
 #include <algorithm>
 #include <queue>
+#include <stdint.h>
+#include <climits>
 
 using namespace std;
 using ll = long long;
 using vll = vector<ll>;
 using vint = vector<int>;
 
+#define int long long
 #define endl "\n"
 
 
@@ -18,70 +21,58 @@ void print(T& v) {
     cout << endl;
 }
 
-struct node {
-    int id, sa, sb;
-
-    bool operator<(const node& other) const {
-        if (sa + sb != other.sa + other.sb)
-            return sa + sb > other.sa + other.sb;
-        else
-            return sa > other.sa;
-    }
-};
-
 struct edge {
     int dst, a, b;
 };
 
 vector<vector<edge>> v;
-vint f;
+
+int dp[61000][310]{};
+int f[61000][310]{};
 
 void _() {
-    v.clear();f.clear();
+
     int n, m;cin >> n >> m;
-    v.resize(n + 1);
+    v.assign(n + 1, vector<edge>());
+    for (int i = 0;i <= (n - 1) * 200;i++)
+        for (int j = 0;j < 310;j++)
+            f[i][j] = 0;
 
     while (m--) {
         int src, dst, a, b;
         cin >> src >> dst >> a >> b;
-        v[src].push_back({ dst , a ,b });
+        v[src].push_back({ dst,a,b });
     }
 
-    //Djstrastla
+    f[0][1] = 1, dp[0][1] = 0;
 
-    node res[n + 1]; for (int i = 1;i <= n;i++) res[i] = node{ i,99999999,99999999 };
-    int vis[n + 1]{};
-    priority_queue<node> q;
+    for (int i = 0;i <= (n - 1) * 200;i++)
+        for (int u = 1;u <= n;u++)
+            if (f[i][u])
+                for (auto [vt, a, b] : v[u]) {
+                    int suma = i + a;
+                    int& ref = dp[suma][vt];
 
-    q.push({ 1,0,0 });
-    res[1] = { 1,0,0 };
-    while (!q.empty()) {
-        auto t = q.top();q.pop();
+                    if (suma > 60000) continue;
 
-        if (t < res[t.id]) continue;
-        vis[t.id] = true;
+                    if (!f[suma][vt]) ref = dp[i][u] + b, f[suma][vt] = 1;
+                    else ref = min(ref, dp[i][u] + b);
+                }
 
-        for (auto e : v[t.id]) {
-            if (vis[e.dst]) continue;
+    int temp = LLONG_MAX;
 
-            node nn{ e.dst,t.sa + e.a,t.sb + e.b };
+    int ansa = 0, ansb = 0;
 
-            if (res[e.dst] < nn) {
-                res[e.dst].sa = nn.sa;
-                res[e.dst].sb = nn.sb;
-                q.push(nn);
-            }
-        }
-    }
+    for (int i = 1;i <= (n - 1) * 200;i++)
+        if (f[i][n])
+            if (dp[i][n] * i < temp)
+                ansa = i, ansb = dp[i][n], temp = dp[i][n] * i;
 
-    node ans = res[n];
-
-    cout << ans.sa << " " << ans.sb << endl;
-
+    cout << ansa << " " << ansb << endl;
 
 }
 
-int main() {
+signed main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr), cout.tie(nullptr);
 
